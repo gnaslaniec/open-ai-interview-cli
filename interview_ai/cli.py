@@ -1,6 +1,8 @@
 import json
-import fitz
+from typing import Optional
+
 import click
+import fitz
 from rich import print
 from rich.progress import Progress
 from rich.prompt import Prompt
@@ -21,6 +23,13 @@ def parse_pdf_to_text(filepath: str) -> str:
     except Exception as e:
         print(f"[bold red]Error extracting text from PDF: {e}")
         return ""
+
+def validate_file_extension(file: str) -> Optional[None]:
+    """
+    Check if the file is a PDF.
+    """
+    if not file.lower().endswith('.pdf'):
+        raise click.BadParameter("File must be a PDF")
 
 def generate_questions(pdf_text: str, number_of_questions: int, role: str, client: OpenAIClient) -> str:
     """
@@ -60,6 +69,7 @@ def prompt_questions(questions_json: str) -> list:
 @click.option("--role", "-r", required=True, help="Role to generate questions for")
 @click.option("--num-questions", "-n", default=5, help="Number of questions to generate")
 def cli(file: str, role: str, num_questions: int):
+  validate_file_extension(file)
   print("""[bold green]
   ******************************************
   *         Welcome to the OpenAI          *
