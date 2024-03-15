@@ -16,7 +16,7 @@ To install the OpenAI Interview CLI, follow these steps:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/openai-interview-cli.git
+    git clone https://github.com:gnaslaniec/open-ai-interview-cli.git
     ```
 
 2. Navigate to the project directory:
