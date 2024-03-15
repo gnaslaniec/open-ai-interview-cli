@@ -53,13 +53,13 @@ To use the OpenAI Interview CLI, follow these steps:
 
 ## Configuration
 
-To configure the OpenAI Interview CLI, you can modify the following parameters in the `interview_cli.py` file:
+To configure the OpenAI Interview CLI, you can modify the environments variables, following the env.example file
 
-- `api_key`: Your OpenAI API key.
-- `model`: The model to use for question generation.
-- `system`: The system to use for question generation.
-- `temperature`: The temperature parameter for controlling the randomness of generated text.
-- `max_tokens`: The maximum number of tokens to generate.
+- `OPENAI_KEY`: Your OpenAI API key [OBRIGATORY].
+- `OPENAI_MODEL`: The model to use for question generation.
+- `OPENAI_SYSTEM_PROMPT`: The system to use for question generation.
+- `OPENAI_TEMPERATURE`: The temperature parameter for controlling the randomness of generated text.
+- `OPENAI_MAX_TOKENS`: The maximum number of tokens to generate.
 
 ## Contributing
 
