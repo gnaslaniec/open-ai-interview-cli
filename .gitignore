@@ -175,6 +175,7 @@ pyrightconfig.json
 
 .vscode
 
-**.pdf
+*.pdf
 
+!tests/test_pdfs/dummy.pdf
 # End of https://www.toptal.com/developers/gitignore/api/python

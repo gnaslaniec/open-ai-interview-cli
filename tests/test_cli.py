@@ -10,7 +10,7 @@ def test_cli_succeeds_with_help_flag():
 
 def test_cli_succeeds_with_valid_args():
     runner = CliRunner()
-    result = runner.invoke(cli.cli, ['tests/test_pdfs/sample_resume.pdf', '--role', 'Software Engineer', '--num-questions', '3'])
+    result = runner.invoke(cli.cli, ['tests/test_pdfs/dummy.pdf', '--role', 'Software Engineer', '--num-questions', '3'])
     assert result.exit_code == 0
 
 

@@ -1,16 +1,24 @@
 import json
 from typing import Optional
 
-import click
 import fitz
 from rich import print
-from rich.progress import Progress
 from rich.prompt import Prompt
+from rich.progress import Progress
+
+import rich_click as click
 
 from interview_ai.client import OpenAIClient
 from interview_ai.environments import api_key, model, system, temperature, max_tokens
 
 client = OpenAIClient(api_key, model, system, temperature, max_tokens)
+
+def validate_file_extension(file: str) -> Optional[None]:
+    """
+    Check if the file is a PDF.
+    """
+    if not file.lower().endswith('.pdf'):
+        raise click.BadParameter("File must be a PDF")
 
 def parse_pdf_to_text(filepath: str) -> str:
     """
@@ -22,14 +30,7 @@ def parse_pdf_to_text(filepath: str) -> str:
         return " ".join(text_pages)
     except Exception as e:
         print(f"[bold red]Error extracting text from PDF: {e}")
-        return ""
-
-def validate_file_extension(file: str) -> Optional[None]:
-    """
-    Check if the file is a PDF.
-    """
-    if not file.lower().endswith('.pdf'):
-        raise click.BadParameter("File must be a PDF")
+        click.Abort()
 
 def generate_questions(pdf_text: str, number_of_questions: int, role: str, client: OpenAIClient) -> str:
     """
@@ -44,7 +45,8 @@ def generate_questions(pdf_text: str, number_of_questions: int, role: str, clien
         )
     except Exception as e:
         print(f"[bold red]Error generating questions: {e}")
-        return ""
+        click.Abort()
+
       
 def prompt_questions(questions_json: str) -> list:
     """
@@ -62,13 +64,17 @@ def prompt_questions(questions_json: str) -> list:
             cont += 1
     except Exception as e:
         print(f"[bold red]Error prompting questions: {e}")
+        click.Abort()
     return questions_and_answers
 
 @click.command()
-@click.argument("file", required=True)
+@click.argument("file", type=click.Path(exists=True) ,required=True)
 @click.option("--role", "-r", required=True, help="Role to generate questions for")
 @click.option("--num-questions", "-n", default=5, help="Number of questions to generate")
 def cli(file: str, role: str, num_questions: int):
+  """
+  CLI application to generate interview questions based on a PDF file.
+  """
   validate_file_extension(file)
   print("""[bold green]
   ******************************************
