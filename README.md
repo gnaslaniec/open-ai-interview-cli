@@ -53,9 +53,9 @@ To use the OpenAI Interview CLI, follow these steps:
 
 ## Configuration
 
-To configure the OpenAI Interview CLI, you can modify the environments variables, following the env.example file
+To configure the OpenAI Interview CLI, you need to create a .env file following the structure provided in the .env.example file. If the .env file is not set, the CLI will use the default values specified in the environments.py file.
 
-- `OPENAI_KEY`: Your OpenAI API key [OBRIGATORY].
+- `OPENAI_KEY`: Your OpenAI API key. It is recommended to set this as a system variable. [OBRIGATORY]
 - `OPENAI_MODEL`: The model to use for question generation.
 - `OPENAI_SYSTEM_PROMPT`: The system to use for question generation.
 - `OPENAI_TEMPERATURE`: The temperature parameter for controlling the randomness of generated text.
